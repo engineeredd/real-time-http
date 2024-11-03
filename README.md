@@ -54,16 +54,16 @@ The CI/CD pipeline for this application is implemented using GitHub Actions. The
 
 The CI/CD pipeline is defined in the .github/workflows/ci.yml file. Below is an example of how to set up the pipeline:
 
-    ```yaml
+    ```bash
     name: CI Pipeline
 
     on:
     push:
         branches:
-        - main  # Adjust to your default branch
+        - main
     pull_request:
         branches:
-        - main  # Adjust to your default branch
+        - main
 
     jobs:
     lint-backend:
@@ -168,9 +168,9 @@ The application follows a client-server architecture where the NestJS backend se
     - Data stored in a PostgreSQL database.
 
 - Frontend (Next.js):
-    Server-side rendering for better SEO and performance.
-    Dynamic fetching of data from the backend.
-    Real-time UI updates via WebSocket.
+    - Server-side rendering for better SEO and performance.
+    - Dynamic fetching of data from the backend.
+    - Real-time UI updates via WebSocket.
 
 ## Choice of Technologies and Reasoning
 
