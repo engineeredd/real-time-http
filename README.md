@@ -20,7 +20,6 @@ The CI/CD pipeline for this application is implemented using GitHub Actions. The
 1. Clone the repository:
     ```bash
    git clone https://github.com/engineeredd/real-time-http.git
-   cd http-monitoring-app
 
 2. Navigate to the backend directory:
     ```bash
@@ -54,7 +53,6 @@ The CI/CD pipeline for this application is implemented using GitHub Actions. The
 
 The CI/CD pipeline is defined in the .github/workflows/ci.yml file. Below is an example of how to set up the pipeline:
 
-    ```bash
     name: CI Pipeline
 
     on:
