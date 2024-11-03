@@ -1,0 +1,42 @@
+stages:
+  - lint
+  - test
+
+lint-backend:
+  stage: lint
+  image: node:20
+  script:
+    - cd http-monitoring-app
+    - npm install
+    - npm run lint
+
+lint-frontend:
+  stage: lint
+  image: node:20
+  script:
+    - cd http-monitoring-frontend
+    - npm install
+    - npm run lint
+
+test-backend:
+  stage: test
+  image: node:20
+  script:
+    - cd http-monitoring-app
+    - npm install
+    - npm test
+    - npm run test:cov
+  artifacts:
+    paths:
+      - http-monitoring-app/coverage
+
+test-frontend:
+  stage: test
+  image: node:20
+  script:
+    - cd http-monitoring-frontend
+    - npm install
+    - npm test
+  artifacts:
+    paths:
+      - http-monitoring-frontend/coverage

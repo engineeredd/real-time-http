@@ -1,0 +1,95 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches:
+      - main  # Adjust to your default branch
+  pull_request:
+    branches:
+      - main  # Adjust to your default branch
+
+jobs:
+  lint-backend:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js for Backend
+        uses: actions/setup-node@v2
+        with:
+          node-version: '20'
+
+      - name: Install backend dependencies
+        run: cd http-monitoring-app && npm install
+
+      - name: Run backend linting
+        run: cd http-monitoring-app && npm run lint
+
+  test-backend:
+    runs-on: ubuntu-latest
+    needs: lint-backend
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js for Backend
+        uses: actions/setup-node@v2
+        with:
+          node-version: '20'
+
+      - name: Install backend dependencies
+        run: cd http-monitoring-app && npm install
+
+      - name: Run backend tests
+        run: cd http-monitoring-app && npm test
+
+      - name: Generate backend coverage report
+        run: cd http-monitoring-app && npm run test:cov
+
+      - name: Upload backend coverage report
+        uses: actions/upload-artifact@v2
+        with:
+          name: backend-coverage-report
+          path: http-monitoring-app/coverage
+
+  lint-frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js for Frontend
+        uses: actions/setup-node@v2
+        with:
+          node-version: '20'
+
+      - name: Install frontend dependencies
+        run: cd http-monitoring-frontend && npm install
+
+      - name: Run frontend linting
+        run: cd http-monitoring-frontend && npm run lint
+
+  test-frontend:
+    runs-on: ubuntu-latest
+    needs: lint-frontend
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js for Frontend
+        uses: actions/setup-node@v2
+        with:
+          node-version: '20'
+
+      - name: Install frontend dependencies
+        run: cd http-monitoring-frontend && npm install
+
+      - name: Run frontend tests
+        run: cd http-monitoring-frontend && npm test
+
+      - name: Upload frontend coverage report
+        uses: actions/upload-artifact@v2
+        with:
+          name: frontend-coverage-report
+          path: http-monitoring-frontend/coverage
